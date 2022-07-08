@@ -48,10 +48,14 @@ def binarySearchtuple(mItem, mList, key):
         return [False, startIndex]
     return [False, target]
 
+LOCATION = 'C:' + os.environ['HOMEPATH'] + '\\instantclient_21_6'
+os.environ['PATH'] = LOCATION + ';' + os.environ['PATH']
+os.environ['NLS_LANG'] = 'KOREAN_KOREA.KO16MSWIN949'
+
 #테이블 2500 최대 75000 30
 tablesize = 2500
 
-conn = db.connect('lolpredict', 'korhrd', '127.0.0.1:1521')
+conn = db.connect('lolpredict','korhrd','163.152.224.168:1521')
 cursor = conn.cursor()
 
 sql = 'select * from userinfo where isComplete = 0'
