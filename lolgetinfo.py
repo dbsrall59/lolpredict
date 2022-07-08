@@ -67,7 +67,7 @@ requestHeader = {
     "Accept-Language": "ko-KR,ko;q=0.8,en-US;q=0.5,en;q=0.3",
     "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
     "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": "RGAPI-dfecf892-3426-40ea-9670-a4656b2aae03"
+    "X-Riot-Token": ""
 }
 
 while(len(userList)):
