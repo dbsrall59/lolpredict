@@ -5,6 +5,7 @@ from datetime import datetime
 import cx_Oracle as db
 import random
 import math
+import os
 
 def binarySearchAsc(mItem, mList):
     
@@ -77,12 +78,21 @@ requestHeader = {
 while(len(userList)):
     i0 = random.randint(0, len(userList) - 1)
     
+    isnotFound = False
     nameUrl = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + userList[i0][0]
     nameCode = 0
     while(nameCode != 200):
         puuid = requests.get(nameUrl, headers=requestHeader)
         nameCode = puuid.status_code
         time.sleep(2)
+        
+        print(nameCode)
+        if(nameCode == 404):
+            isnotFound = True
+            break
+    
+    if(isnotFound == True):
+        continue
     
     
     puuidUrl = "https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/" + puuid.json()['puuid'] + "/ids?start=0&count=100"
@@ -91,6 +101,7 @@ while(len(userList)):
         puuidResult = requests.get(puuidUrl, headers=requestHeader)
         puuidCode = puuidResult.status_code
         time.sleep(2)
+        print(puuidCode)
         
     for matchid in puuidResult.json():
         searchMatch = binarySearchtuple(matchid, matchList, 0)
@@ -103,6 +114,7 @@ while(len(userList)):
             matchResult = requests.get(matchUrl, headers=requestHeader)
             matchCode = matchResult.status_code
             time.sleep(2)
+            print(matchCode)
             
         for user in matchResult.json()['info']['participants']:
             searchUser = binarySearchtuple(user['summonerName'], userList, 0)
@@ -120,7 +132,7 @@ while(len(userList)):
         longjson = str(matchResult.json())
         longjson = longjson.replace("'", "\\\"")
         splitjson = []
-        for i in range(math.ceil(len(t) / tablesize)):
+        for i in range(math.ceil(len(longjson) / tablesize)):
             splitjson.append(longjson[i:i + tablesize])
         
         sql = "insert into matchInfo(matchid"
