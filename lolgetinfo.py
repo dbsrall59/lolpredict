@@ -56,7 +56,7 @@ os.environ['NLS_LANG'] = 'KOREAN_KOREA.KO16MSWIN949'
 #테이블 3900 최대 117000 30
 tablesize = 3900
 
-conn = db.connect('lolpredict', 'korhrd', '127.0.0.1:1521')
+conn = db.connect('lolpredict', 'korhrd', '163.152.224.168:1521')
 cursor = conn.cursor()
 
 sql = 'select * from userinfo where isComplete = 0'
