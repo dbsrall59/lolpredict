@@ -102,6 +102,16 @@ while(len(userList)):
         time.sleep(2)
         print(puuidResult.status_code)
         
+        if(nameCode == 404):
+            isnotFound = True
+            break
+    
+    if(isnotFound == True):
+        sql = "update userinfo SET iscomplete = 1 where username = '{}'".format(userList[i0][0])
+        cursor.execute(sql)
+        conn.commit()
+        continue
+        
     for matchid in puuidResult.json():
         searchMatch = binarySearchtuple(matchid, matchList, 0)
         if searchMatch[0] == True:
