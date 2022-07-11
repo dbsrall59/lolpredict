@@ -68,11 +68,7 @@ cursor.execute(sql)
 matchList = cursor.fetchall()
 
 requestHeader = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Firefox/102.0",
-    "Accept-Language": "ko-KR,ko;q=0.8,en-US;q=0.5,en;q=0.3",
-    "Accept-Charset": "application/x-www-form-urlencoded; charset=UTF-8",
-    "Origin": "https://developer.riotgames.com",
-    "X-Riot-Token": ""
+
 }
 
 while(len(userList)):
@@ -133,7 +129,7 @@ while(len(userList)):
         longjson = longjson.replace("'", "\\\"")
         splitjson = []
         for i in range(math.ceil(len(longjson) / tablesize)):
-            splitjson.append(longjson[i:i + tablesize])
+            splitjson.append(longjson[i * tablesize : (i + 1) * tablesize])
         
         sql = "insert into matchInfo(matchid"
         for i in range(len(splitjson)):
