@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>wow</title>
+        <link href="{% static 'lolsite/css/bootstrap.min.css'%}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {% include 'lolsite/include/nav.html' %}
+        
+        <table>
+            <thead>
+                <tr>
+                    <td>글번호</td>
+                    <td>제목</td>
+                    
+                    <td>작성자</td>
+                    <td>조회수</td>
+                    <td>추천수</td>
+                    <td>비추천수</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{content.0}}</td>    
+                    <td>{{content.1}}</td>  
+                    <td>{{content.3}}</td>  
+                    <td>{{content.4}}</td>  
+                    <td>{{content.5}}</td>  
+                    <td>{{content.6}}</td>  
+                </tr>
+            </tbody>
+        </table>
+
+        내용
+        <br>
+        {{content.2}}
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <table>
+            <thead>
+                <tr>
+                    <td>작성자</td>
+                    <td>내용</td>
+                    <td>To</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in replyList %}
+                <tr>
+                    <td>{{item.0}}</td> 
+                    <td>{{item.1}}</td> 
+                    <td>{{item.2}}</td> 
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if request.COOKIES.ID != None %}
+        <form action="/main/writereply/{{content.0}}/" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="댓글을 입력해주세요." id="reply_content" name="reply_content">
+            <input type="text" placeholder="누구한테 쓰십니까" id="reply_To" name="reply_To">
+            <input type="submit" value="댓글작성">
+        </form>
+        {% endif %}
+    </body>
+</html>

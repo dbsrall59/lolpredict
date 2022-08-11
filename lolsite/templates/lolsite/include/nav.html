@@ -1,0 +1,29 @@
+{% load static %}
+
+<nav class="navbar navbar-dark" style="background-color: #c6cbcc;">
+    <!-- Navbar content -->
+ 
+
+<div style="width: 1200px; margin: 0 auto; height: 70px;" >
+    <div>
+        <div class="nav_top" style="text-align: right; float: right; width: 50%; font-size: large; padding: 20px;">
+            
+            {% if request.COOKIES.ID is none %}
+            <a href="/main/login">로그인</a>
+            {% endif %}
+            
+            {% if request.COOKIES.ID is none %}
+            <a href="/main/join">회원가입</a>
+            {% endif %}
+
+            {% if request.COOKIES.ID is not none %}
+            <a href="/main/logout">로그아웃</a>
+            {% endif %}
+        </div>
+        
+        <div class="nav_top" style="border: 1px solid black ; border-radius:10px; padding: 10px; text-align: left; float: left; font-size: large; padding: 20px;">
+            <a href="/main/board">게시판</a> | <a href="/main/home">예측하기</a>
+        </div>
+    </div>
+</div>
+</nav>
